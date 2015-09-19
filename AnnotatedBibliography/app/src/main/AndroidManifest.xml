@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="edu.regis.msse655.annotatedbibliography">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".ReferenceListActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <!-- intent filter to allow for importing a bibtex .bib file downloaded from a browser -->
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.EDIT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="file"
+                    android:mimeType="*/*"
+                    android:pathPattern="/.*\\.bib"
+                    android:host="*"/>
+                    />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ReferenceActivity"
+            android:label="@string/title_activity_reference"
+            android:parentActivityName=".ReferenceListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.regis.msse655.annotatedbibliography.ReferenceListActivity" />
+        </activity>
+    </application>
+
+</manifest>
