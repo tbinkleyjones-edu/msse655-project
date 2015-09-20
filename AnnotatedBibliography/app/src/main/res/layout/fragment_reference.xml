@@ -9,11 +9,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
+        <edu.regis.msse655.annotatedbibliography.components.TypeOfMediaView
             android:id="@+id/imageViewMediaType"
             android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:background="@android:mipmap/sym_def_app_icon" />
+            android:layout_height="64dp" />
 
         <TextView
             android:id="@+id/textViewReferenceTitle"

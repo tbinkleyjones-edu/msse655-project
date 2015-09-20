@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content" android:layout_height="wrap_content">
 
-    <TextView
+    <edu.regis.msse655.annotatedbibliography.components.TypeOfMediaView
         android:layout_width="75dp"
         android:layout_height="fill_parent"
         android:textAppearance="?android:attr/textAppearanceLarge"
