@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import edu.regis.msse655.annotatedbibliography.components.ReferenceArrayAdapter;
 import edu.regis.msse655.annotatedbibliography.model.Reference;
 import edu.regis.msse655.annotatedbibliography.service.ReferenceService;
 import edu.regis.msse655.annotatedbibliography.service.ServiceLocator;
@@ -35,10 +36,8 @@ public class ReferenceListFragment extends ListFragment {
         ReferenceService service = ServiceLocator.getReferenceService();
 
         // TODO: use a custom adapter that builds a view tailored for the reference.
-        setListAdapter(new ArrayAdapter<Reference>(
+        setListAdapter(new ReferenceArrayAdapter(
                 getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
                 service.retrieveAllReferences()));
     }
 
