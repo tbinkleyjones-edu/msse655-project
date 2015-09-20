@@ -12,7 +12,7 @@ public class Reference {
     private String notes;
     private String url;
     private String doi;
-    private String typeOfMedia;
+    private TypeOfMedia typeOfMedia;
     private String authors; // TOOD: consider using a list of Author objects.
 
     public String getMediaTitle() {
@@ -79,11 +79,11 @@ public class Reference {
         this.doi = doi;
     }
 
-    public String getTypeOfMedia() {
+    public TypeOfMedia getTypeOfMedia() {
         return typeOfMedia;
     }
 
-    public void setTypeOfMedia(String typeOfMedia) {
+    public void setTypeOfMedia(TypeOfMedia typeOfMedia) {
         this.typeOfMedia = typeOfMedia;
     }
 
