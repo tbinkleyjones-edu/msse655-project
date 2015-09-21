@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">Annotated Bibliography</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_reference">Reference</string>
-    <!--resources for Font Awesome unicode character codes.-->
 
+    <!-- menu item strings -->
+    <string name="action_settings">Settings</string>
+    <string name="action_hide">Hide</string>
+
+    <string name="title_activity_reference">Reference</string>
+
+
+    <!--resources for Font Awesome unicode character codes.-->
     <!--fa-newspaper-o-->
     <string name="icon_magazine">&#xf1ea;</string>
     <!--fa-book-->

@@ -54,6 +54,19 @@ class HardCodedReferenceService implements ReferenceService{
         reference.setMediaTitle("Google design guidelines");
         reference.setUrl("https://www.google.com/design/spec/patterns/app-structure.html");
         allReferences.add(reference);
+
+        reference = new Reference();
+        reference.setId(4);
+        reference.setReferenceTitle("Really big disaster movie");
+        reference.setAuthors("Smith, J. D. (Producer), & Smithee, A. F. (Director)");
+        reference.setTypeOfMedia(TypeOfMedia.UNKNOWN);
+        reference.setMediaTitle("Paramount Pictures");
+        allReferences.add(reference);
+
+
+        /*
+        Smith, J. D. (Producer), & Smithee, A. F. (Director). (2001). Really big disaster movie [Motion picture]. United States: Paramount Pictures.
+         */
     }
 
 
