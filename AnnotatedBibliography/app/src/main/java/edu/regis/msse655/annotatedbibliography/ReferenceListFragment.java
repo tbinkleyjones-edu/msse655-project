@@ -43,8 +43,11 @@ public class ReferenceListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
+
+        Reference reference = (Reference)getListAdapter().getItem(position);
+
         Intent intent = new Intent(v.getContext(), ReferenceActivity.class);
-        intent.putExtra("index", position); // TODO: use an id?
+        intent.putExtra("index", reference.getId());
 
         startActivity(intent);
     }

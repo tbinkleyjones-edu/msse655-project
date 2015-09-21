@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_magazine">#D32F2F</color>
+    <color name="color_journal">#536DFE</color>
+    <color name="color_book">#F57C00</color>
+    <color name="color_website">#4CAF50</color>
+    <color name="color_other">#000000</color>
+
+</resources>

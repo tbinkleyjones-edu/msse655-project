@@ -22,6 +22,7 @@ class HardCodedReferenceService implements ReferenceService{
         allReferences = new ArrayList<>();
         Reference reference = new Reference();
 
+        reference.setId(1);
         reference.setReferenceAbstract("The article discusses the advantages and drawbacks of programming mobile device applications (apps) using open source World Wide Web based code, or native code that is specific to each brand of smartphone or mobile computing device. The native code approach can produce apps which perform faster for 3D (three-dimensional) or image processing tasks, but few software development firms have the resources to provide separate coding for multiple devices. Information on the various programming languages used for smartphones such the iPhone, BlackBerry and Android is provided.");
         reference.setAuthors("CHARLAND, ANDRE and LEROUX, BRIAN");
         reference.setTypeOfMedia(TypeOfMedia.MAGAZINE);
@@ -34,6 +35,7 @@ class HardCodedReferenceService implements ReferenceService{
         allReferences.add(reference);
 
         reference = new Reference();
+        reference.setId(2);
         reference.setReferenceAbstract("NoBot is a novel malware detection system that employs packet classification and distinct counting techniques to achieve reliable detection and identification of malware by observing the traffic to and from a network-connected host. The solution is designed to be economically incorporated into endpoint devices, such as Ethernet switches, Gigabit passive optical network (GPON) devices, and digital subscriber line access multiplexers (DSLAMs) leveraging the integral features of the hosting device, such as packet classification, packet counting, packet-forwarding features, and the computing resources of the control processor. NoBot combines these features with deep packet inspection and distinct counting to detect the presence of malware with a low rate of false positive detections. The NoBot software has been incorporated into a Linux device driver, installed into an Android-based smart phone, and implemented as a preprocessor module for the open source Snort Intrusion detection and pre");
         reference.setAuthors("Menten, Lawrence E. and Chen, Aiyou and Stiliadis, Dimitrios");
         reference.setTypeOfMedia(TypeOfMedia.JOURNAL);
@@ -46,6 +48,7 @@ class HardCodedReferenceService implements ReferenceService{
         allReferences.add(reference);
 
         reference = new Reference();
+        reference.setId(3);
         reference.setReferenceTitle("App structure");
         reference.setTypeOfMedia(TypeOfMedia.WEBSITE);
         reference.setMediaTitle("Google design guidelines");
@@ -60,7 +63,12 @@ class HardCodedReferenceService implements ReferenceService{
     }
 
     @Override
-    public Reference retrieveReference(int index) {
-        return allReferences.get(index);
+    public Reference retrieveReference(int id) {
+        for(Reference reference : allReferences) {
+            if( reference.getId() == id) {
+                return reference;
+            }
+        }
+        return null;
     }
 }
