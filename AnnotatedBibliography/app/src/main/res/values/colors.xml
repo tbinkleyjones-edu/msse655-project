@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--style colors for TypeOfMediaView-->
+    <color name="color_magazine_light">#D32F2F</color>
+    <color name="color_magazine_dark">#F44336</color>
+
+    <color name="color_journal_light">#303F9F</color>
+    <color name="color_journal_dark">#3F51B5</color>
+
+    <color name="color_book_light">#E64A19</color>
+    <color name="color_book_dark">#FF5722</color>
+
+    <color name="color_website_light">#388E3C</color>
+    <color name="color_website_dark">#4CAF50</color>
+
+    <color name="color_other_light">#000000</color>
+    <color name="color_other_dark">#FFFFFF</color>
+</resources>

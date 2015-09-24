@@ -1,8 +1,12 @@
 <resources>
 
+    <!-- NOTE: See .../values-v21/styles.xml for the styles and themes assigned for week 4 -->
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <!-- Customize your theme here. -->
     </style>
+
+
 
 </resources>

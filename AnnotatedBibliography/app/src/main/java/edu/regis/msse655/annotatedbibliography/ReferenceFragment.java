@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import edu.regis.msse655.annotatedbibliography.components.TypeOfMediaView;
 import edu.regis.msse655.annotatedbibliography.model.Reference;
 import edu.regis.msse655.annotatedbibliography.service.ServiceLocator;
 
@@ -37,6 +38,7 @@ public class ReferenceFragment extends Fragment {
         final Reference reference = ServiceLocator.getReferenceService().retrieveReference(index);
 
         View rootView = inflater.inflate(R.layout.fragment_reference, container, false);
+        ((TypeOfMediaView)rootView.findViewById(R.id.imageViewMediaType)).setTypeOfMedia(reference.getTypeOfMedia());
         ((TextView)rootView.findViewById(R.id.textViewReferenceTitle)).setText(reference.getReferenceTitle());
         ((TextView)rootView.findViewById(R.id.textViewMediaTitle)).setText(reference.getMediaTitle());
         ((TextView)rootView.findViewById(R.id.textViewAuthors)).setText(reference.getAuthors());

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="Theme">
+
+        <!-- Default color of foreground imagery. -->
+        <attr name="colorTypeOfMediaMagazine" format="color" />
+        <attr name="colorTypeOfMediaJournal" format="color" />
+        <attr name="colorTypeOfMediaBook" format="color" />
+        <attr name="colorTypeOfMediaWebsite" format="color" />
+        <attr name="colorTypeOfMediaOther" format="color" />
+
+    </declare-styleable>
+</resources>

@@ -1,5 +1,6 @@
 package edu.regis.msse655.annotatedbibliography;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,5 +49,14 @@ public class ReferenceListActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * onClick handler for the Hide action bar menu item.
+     * @param item
+     */
+    public void onClickHide(MenuItem item) {
+        ActionBar actionBar = getActionBar();
+        actionBar.hide();
     }
 }

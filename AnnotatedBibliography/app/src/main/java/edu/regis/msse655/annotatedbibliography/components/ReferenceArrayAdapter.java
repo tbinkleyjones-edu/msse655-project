@@ -24,17 +24,19 @@ public class ReferenceArrayAdapter extends ArrayAdapter<Reference> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        Context context = this.getContext();
+
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View rowView = inflater.inflate(R.layout.view_reference_list_item, parent, false);
 
-        TextView faIconView = (TextView) rowView.findViewById(R.id.textViewFaIcon);
+        TypeOfMediaView typeOfMediaView = (TypeOfMediaView) rowView.findViewById(R.id.textViewFaIcon);
         TextView titleView = (TextView) rowView.findViewById(R.id.textViewTitle);
         TextView authorsView = (TextView) rowView.findViewById(R.id.textViewAuthors);
 
         Reference reference = this.getItem(position);
-
-        faIconView.setText(reference.getTypeOfMedia());
+        typeOfMediaView.setTypeOfMedia(reference.getTypeOfMedia());
         titleView.setText(reference.getReferenceTitle());
         authorsView.setText(reference.getAuthors());
 
