@@ -1,6 +1,6 @@
 package edu.regis.msse655.annotatedbibliography;
 
-import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,7 +9,7 @@ import android.view.MenuItem;
  * A secondary activity of the application. Displays details of a selected Reference object (via
  * a child ReferencFragment)
  */
-public class ReferenceActivity extends Activity {
+public class ReferenceActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

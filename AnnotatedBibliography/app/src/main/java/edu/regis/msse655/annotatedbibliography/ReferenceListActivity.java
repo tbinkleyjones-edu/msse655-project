@@ -1,7 +1,7 @@
 package edu.regis.msse655.annotatedbibliography;
 
+import android.support.v7.app.AppCompatActivity;
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,11 +11,11 @@ import android.widget.Toast;
 /**
  * The primary or main Activity for the application.
  *
- * The Activity display a list of Reference objects (via a child ReferenceListFragment).
+ * The Activity display a list of Reference objects (via a child ReferenceListActivityFragment).
  *
  * The Activity also handles a request to open a bib file.
  */
-public class ReferenceListActivity extends Activity {
+public class ReferenceListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -40,11 +40,6 @@ public class TypeOfMediaView extends TextView {
         init();
     }
 
-    public TypeOfMediaView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init();
-    }
-
     /**
      * Displays the appropriate icon for the specified typeOfMedia.
      *
@@ -77,7 +72,7 @@ public class TypeOfMediaView extends TextView {
                 break;
         }
         setText(getContext().getString(typeOfMediaId));
-        setTextAppearance(textAppearanceId);
+        setTextAppearance(this.getContext(), textAppearanceId);
         setTypeface(fontAwesome);
     }
 

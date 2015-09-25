@@ -18,19 +18,23 @@
                 <!-- intent filter to allow for importing a bibtex .bib file downloaded from a browser -->
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="file"
+
+                <data
+                    android:host="*"
                     android:mimeType="*/*"
                     android:pathPattern="/.*\\.bib"
-                    android:host="*"/>
-                    />
+                    android:scheme="file" />
+                />
             </intent-filter>
         </activity>
-        <activity android:theme="@style/AppTheme"
+        <activity
             android:name=".ReferenceActivity"
             android:label="@string/title_activity_reference"
-            android:parentActivityName=".ReferenceListActivity">
+            android:parentActivityName=".ReferenceListActivity"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.regis.msse655.annotatedbibliography.ReferenceListActivity" />

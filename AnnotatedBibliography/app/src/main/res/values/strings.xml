@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Annotated Bibliography</string>
-
     <!-- menu item strings -->
     <string name="action_settings">Settings</string>
     <string name="action_hide">Hide</string>
@@ -19,5 +18,4 @@
     <string name="icon_website">&#xf0e8;</string>
     <!--fa-file-text-->
     <string name="icon_other">&#xf15c;</string>
-
 </resources>

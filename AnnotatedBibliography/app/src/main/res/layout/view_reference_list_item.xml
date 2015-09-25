@@ -5,11 +5,12 @@
 
     <edu.regis.msse655.annotatedbibliography.components.TypeOfMediaView
         android:id="@+id/textViewFaIcon"
-        style="@style/TypeOfMediaView"
+
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:text="@string/icon_other"
-        android:textAppearance="@style/TypeOfMediaView.TextAppearance" />
+        style="@style/TypeOfMediaView"
+        android:textAppearance="@style/TypeOfMediaView.TextAppearance"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,14 +23,14 @@
             android:layout_height="wrap_content"
             android:text="--reference title--"
             style="@style/TwoLineTextViewWithEllipses"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
 
         <TextView
             android:id="@+id/textViewAuthors"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/OneLineTextViewWithEllipses"
             android:text="-- authors --"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            style="@style/OneLineTextViewWithEllipses"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
     </LinearLayout>
 </LinearLayout>

@@ -1,7 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="edu.regis.msse655.annotatedbibliography.ReferenceActivityFragment">
 
 
     <LinearLayout
@@ -11,17 +13,17 @@
 
         <edu.regis.msse655.annotatedbibliography.components.TypeOfMediaView
             android:id="@+id/imageViewMediaType"
-            style = "@style/TypeOfMediaView"
-            android:text="@string/icon_other"
+            style="@style/TypeOfMediaView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:text="@string/icon_other"
             android:textAppearance="@style/TypeOfMediaView.TextAppearance" />
 
         <TextView
             android:id="@+id/textViewReferenceTitle"
+            style="@style/TwoLineTextViewWithEllipses"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            style="@style/TwoLineTextViewWithEllipses"
             android:text="--reference title--"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
@@ -53,9 +55,9 @@
 
     <TextView
         android:id="@+id/textViewAbstract"
+        style="@style/FiveLineTextViewWithScrollbars"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/FiveLineTextViewWithScrollbars"
         android:text="--reference abstract--"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -67,9 +69,9 @@
 
     <TextView
         android:id="@+id/textViewNotes"
+        style="@style/FiveLineTextViewWithScrollbars"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/FiveLineTextViewWithScrollbars"
         android:text="--notes--"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 

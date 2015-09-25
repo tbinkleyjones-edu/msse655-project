@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import edu.regis.msse655.annotatedbibliography.components.ReferenceArrayAdapter;
@@ -18,9 +17,9 @@ import edu.regis.msse655.annotatedbibliography.service.ServiceLocator;
  * A fragment that display a list of Reference objects. When an item is selected,
  * an Intent is sent to start a ReferenceActivity.
  */
-public class ReferenceListFragment extends ListFragment {
+public class ReferenceListActivityFragment extends ListFragment {
 
-    public ReferenceListFragment() {
+    public ReferenceListActivityFragment() {
     }
 
     @Override
