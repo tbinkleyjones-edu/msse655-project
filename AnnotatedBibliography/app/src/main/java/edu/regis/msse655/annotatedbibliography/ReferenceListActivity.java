@@ -63,6 +63,7 @@ public class ReferenceListActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        actionBarDrawerToggle.syncState();
     }
 
     @Override
