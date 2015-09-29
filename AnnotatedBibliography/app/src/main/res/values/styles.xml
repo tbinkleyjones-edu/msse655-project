@@ -1,12 +1,68 @@
 <resources>
 
-    <!-- NOTE: See .../values-v21/styles.xml for the styles and themes assigned for week 4 -->
-
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme.Light" parent="Theme.AppCompat.Light">
+        <item name="colorTypeOfMediaMagazine">@color/color_magazine_light</item>
+        <item name="colorTypeOfMediaJournal">@color/color_journal_light</item>
+        <item name="colorTypeOfMediaBook">@color/color_book_light</item>
+        <item name="colorTypeOfMediaWebsite">@color/color_website_light</item>
+        <item name="colorTypeOfMediaOther">@color/color_other_light</item>
     </style>
 
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <item name="colorTypeOfMediaMagazine">@color/color_magazine_dark</item>
+        <item name="colorTypeOfMediaJournal">@color/color_journal_dark</item>
+        <item name="colorTypeOfMediaBook">@color/color_book_dark</item>
+        <item name="colorTypeOfMediaWebsite">@color/color_website_dark</item>
+        <item name="colorTypeOfMediaOther">@color/color_other_dark</item>
+    </style>
 
+    <style name="OneLineTextViewWithEllipses" parent="@android:style/Widget.TextView">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
 
+    <style name="TwoLineTextViewWithEllipses" parent="@android:style/Widget.TextView">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <style name="FiveLineTextViewWithScrollbars" parent="@android:style/Widget.TextView">
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:maxLines">5</item>
+    </style>
+
+    <style name="MediumLabel" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <!-- Styles used by TypeOfMediaView -->
+    <style name="TypeOfMediaView">
+        <item name="android:textAppearance">@style/TypeOfMediaView.TextAppearance</item>
+        <item name="android:padding">15sp</item>
+    </style>
+
+    <style name="TypeOfMediaView.TextAppearance">
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="TypeOfMediaView.TextAppearance.Magazine">
+        <item name="android:textColor">?colorTypeOfMediaMagazine</item>
+    </style>
+
+    <style name="TypeOfMediaView.TextAppearance.Journal">
+        <item name="android:textColor">?colorTypeOfMediaJournal</item>
+    </style>
+
+    <style name="TypeOfMediaView.TextAppearance.Book">
+        <item name="android:textColor">?colorTypeOfMediaBook</item>
+    </style>
+
+    <style name="TypeOfMediaView.TextAppearance.Website">
+        <item name="android:textColor">?colorTypeOfMediaWebsite</item>
+    </style>
+
+    <style name="TypeOfMediaView.TextAppearance.Other">
+        <item name="android:textColor">?colorTypeOfMediaOther</item>
+    </style>
 </resources>

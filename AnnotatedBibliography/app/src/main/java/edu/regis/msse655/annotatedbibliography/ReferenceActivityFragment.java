@@ -1,9 +1,9 @@
 package edu.regis.msse655.annotatedbibliography;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +23,9 @@ import edu.regis.msse655.annotatedbibliography.service.ServiceLocator;
  * The fragment also launches a web browser via an ACTION_VIEW Intent passing a the Reference's
  * Url property, or an Url constructed using the Reference's DOI property.
  */
-public class ReferenceFragment extends Fragment {
+public class ReferenceActivityFragment extends Fragment {
 
-    public ReferenceFragment() {
+    public ReferenceActivityFragment() {
     }
 
     @Override
@@ -51,7 +51,7 @@ public class ReferenceFragment extends Fragment {
         urlButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReferenceFragment.this.launchUrl(reference.getUrl());
+                ReferenceActivityFragment.this.launchUrl(reference.getUrl());
             }
         });
 
@@ -60,7 +60,7 @@ public class ReferenceFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // DOI urls are constructed by prepending doi.org to the DOI number. See doi.org for details.
-                ReferenceFragment.this.launchUrl("https://doi.org/" + reference.getDoi());
+                ReferenceActivityFragment.this.launchUrl("https://doi.org/" + reference.getDoi());
             }
         });
 

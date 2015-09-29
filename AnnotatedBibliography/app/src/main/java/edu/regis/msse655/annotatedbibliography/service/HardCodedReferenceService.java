@@ -1,16 +1,19 @@
 package edu.regis.msse655.annotatedbibliography.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import edu.regis.msse655.annotatedbibliography.model.Reference;
+import edu.regis.msse655.annotatedbibliography.model.ReferenceFilter;
 import edu.regis.msse655.annotatedbibliography.model.TypeOfMedia;
 
 /**
  * A read-only ReferenceService implementation that provides a few references. Used to enable
  * viewing References in the master/details views until a persistence mechanism is implemented.
  */
-class HardCodedReferenceService implements ReferenceService{
+class HardCodedReferenceService implements ReferenceService {
 
     List<Reference> allReferences;
 
@@ -62,17 +65,21 @@ class HardCodedReferenceService implements ReferenceService{
         reference.setTypeOfMedia(TypeOfMedia.UNKNOWN);
         reference.setMediaTitle("Paramount Pictures");
         allReferences.add(reference);
-
-
-        /*
-        Smith, J. D. (Producer), & Smithee, A. F. (Director). (2001). Really big disaster movie [Motion picture]. United States: Paramount Pictures.
-         */
     }
 
-
     @Override
-    public List<Reference> retrieveAllReferences() {
-        return allReferences;
+    public List<Reference> retrieveReferences(ReferenceFilter filter) {
+        switch(filter) {
+            case RECENT:
+                // this version of the service returns the only the first Reference for RECENT
+                return Collections.singletonList(allReferences.get(0));
+            case FAVORITES:
+                // this version of the service returns the only the first and second Reference for FAVORITES
+                return Arrays.asList(allReferences.get(0), allReferences.get(1));
+            case ALL:
+            default:
+                return Collections.unmodifiableList(allReferences);
+        }
     }
 
     @Override

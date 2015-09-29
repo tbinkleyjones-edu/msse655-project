@@ -1,16 +1,19 @@
 package edu.regis.msse655.annotatedbibliography;
 
-import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.regis.msse655.annotatedbibliography.components.ReferenceArrayAdapter;
 import edu.regis.msse655.annotatedbibliography.model.Reference;
+import edu.regis.msse655.annotatedbibliography.model.ReferenceFilter;
 import edu.regis.msse655.annotatedbibliography.service.ReferenceService;
 import edu.regis.msse655.annotatedbibliography.service.ServiceLocator;
 
@@ -18,9 +21,11 @@ import edu.regis.msse655.annotatedbibliography.service.ServiceLocator;
  * A fragment that display a list of Reference objects. When an item is selected,
  * an Intent is sent to start a ReferenceActivity.
  */
-public class ReferenceListFragment extends ListFragment {
+public class ReferenceListActivityFragment extends ListFragment {
 
-    public ReferenceListFragment() {
+    private ReferenceArrayAdapter arrayAdapter;
+
+    public ReferenceListActivityFragment() {
     }
 
     @Override
@@ -36,9 +41,10 @@ public class ReferenceListFragment extends ListFragment {
         ReferenceService service = ServiceLocator.getReferenceService();
 
         // TODO: use a custom adapter that builds a view tailored for the reference.
-        setListAdapter(new ReferenceArrayAdapter(
+        arrayAdapter = new ReferenceArrayAdapter(
                 getActivity(),
-                service.retrieveAllReferences()));
+                new ArrayList(service.retrieveReferences(ReferenceFilter.ALL)));
+        setListAdapter(arrayAdapter);
     }
 
     @Override
@@ -50,5 +56,12 @@ public class ReferenceListFragment extends ListFragment {
         intent.putExtra("index", reference.getId());
 
         startActivity(intent);
+    }
+
+    public void filterList(ReferenceFilter filter) {
+        ReferenceService service = ServiceLocator.getReferenceService();
+        List<Reference> references = service.retrieveReferences(filter);
+        arrayAdapter.clear();
+        arrayAdapter.addAll(references);
     }
 }
