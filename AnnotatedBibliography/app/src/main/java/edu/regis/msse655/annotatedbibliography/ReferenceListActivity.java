@@ -1,11 +1,9 @@
 package edu.regis.msse655.annotatedbibliography;
 
 import android.content.res.Configuration;
-import android.os.PersistableBundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,11 +15,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import edu.regis.msse655.annotatedbibliography.model.ReferenceFilter;
+
 /**
  * The primary or main Activity for the application.
- *
+ * <p/>
  * The Activity display a list of Reference objects (via a child ReferenceListActivityFragment).
- *
+ * <p/>
  * The Activity also handles a request to open a bib file.
  */
 public class ReferenceListActivity extends AppCompatActivity {
@@ -30,6 +30,7 @@ public class ReferenceListActivity extends AppCompatActivity {
     private ListView drawerListView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    private ReferenceListActivityFragment listFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,10 @@ public class ReferenceListActivity extends AppCompatActivity {
         }
 
         actionBarDrawerToggle.syncState();
+
+        // remember the list fragment for use by the click handler
+        listFragment = (ReferenceListActivityFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
+
     }
 
     @Override
@@ -94,8 +99,8 @@ public class ReferenceListActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onPostCreate(savedInstanceState, persistentState);
+    public void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
         actionBarDrawerToggle.syncState();
     }
 
@@ -108,10 +113,23 @@ public class ReferenceListActivity extends AppCompatActivity {
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            // Create a TOAST message
-            Toast.makeText(ReferenceListActivity.this,
-                    ((TextView) view).getText(),
-                    Toast.LENGTH_LONG).show();
+
+            switch (position) {
+                case 0: // All
+                    listFragment.filterList(ReferenceFilter.ALL);
+                    break;
+                case 1: // Recent
+                    listFragment.filterList(ReferenceFilter.RECENT);
+                    break;
+                case 2: // Favorites
+                    listFragment.filterList(ReferenceFilter.FAVORITES);
+                    break;
+                default:
+                    // Create a TOAST message
+                    Toast.makeText(ReferenceListActivity.this,
+                            ((TextView) view).getText(),
+                            Toast.LENGTH_LONG).show();
+            }
 
             // Close the nav drawer
             drawerLayout.closeDrawer(drawerListView);
