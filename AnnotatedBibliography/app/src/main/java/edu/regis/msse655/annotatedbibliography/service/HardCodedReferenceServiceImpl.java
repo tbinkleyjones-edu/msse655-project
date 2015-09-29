@@ -10,14 +10,14 @@ import edu.regis.msse655.annotatedbibliography.model.ReferenceFilter;
 import edu.regis.msse655.annotatedbibliography.model.TypeOfMedia;
 
 /**
- * A read-only ReferenceService implementation that provides a few references. Used to enable
+ * A read-only IReferenceService implementation that provides a few references. Used to enable
  * viewing References in the master/details views until a persistence mechanism is implemented.
  */
-class HardCodedReferenceService implements ReferenceService {
+class HardCodedReferenceServiceImpl implements IReferenceService {
 
     List<Reference> allReferences;
 
-    public HardCodedReferenceService() {
+    public HardCodedReferenceServiceImpl() {
         createReferences();
     }
 

@@ -8,7 +8,7 @@ import edu.regis.msse655.annotatedbibliography.model.ReferenceFilter;
 /**
  * A data repository that provides persistence for Reference objects.
  */
-public interface ReferenceService {
+public interface IReferenceService {
 
     /**
      * Retrieves every Reference object stored in the System matching the ReferenceFilter.
@@ -18,9 +18,9 @@ public interface ReferenceService {
     List<Reference> retrieveReferences(ReferenceFilter filter);
 
     /**
-     * Retrieves the nth Reference object in the system.
-     * @param index
+     * Retrieves a Reference object by Id.
+     * @param id
      * @return The requested Reference object.
      */
-    Reference retrieveReference(int index); // TODO: consider using an ID instead of an index.
+    Reference retrieveReference(int id);
 }

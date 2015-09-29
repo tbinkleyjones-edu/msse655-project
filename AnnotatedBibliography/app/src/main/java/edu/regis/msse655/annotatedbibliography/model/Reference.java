@@ -1,9 +1,12 @@
 package edu.regis.msse655.annotatedbibliography.model;
 
+import java.io.Serializable;
+
 /**
  * A domain object representing an entry in a bibliography - a reference or citation.
  */
-public class Reference {
+public class Reference implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private int id;
     private String mediaTitle;

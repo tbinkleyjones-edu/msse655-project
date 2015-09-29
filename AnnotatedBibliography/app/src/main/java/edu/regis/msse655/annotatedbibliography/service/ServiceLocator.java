@@ -7,29 +7,31 @@ public class ServiceLocator {
 
     private static ServiceLocator instance;
 
-    private ReferenceService referenceService;
+    private IReferenceService referenceService;
 
-    private ServiceLocator(ReferenceService referenceService) {
+    private ServiceLocator(IReferenceService referenceService) {
         this.referenceService = referenceService;
     }
 
     private static ServiceLocator getInstance() {
         if (instance == null) {
-            createDefaultInstance();
+            throw new IllegalStateException("ServiceLocator is not initialized. Call createInstance before calling get operations.");
         }
         return instance;
     }
 
-    private static void createDefaultInstance() {
+    public static void createInstance(IReferenceService referenceService) {
         instance = new ServiceLocator(
-                new HardCodedReferenceService());
+                referenceService
+        );
     }
 
     /**
      * Gets a Reference Service implementation
+     *
      * @return
      */
-    public static ReferenceService getReferenceService() {
+    public static IReferenceService getReferenceService() {
         return getInstance().referenceService;
     }
 
