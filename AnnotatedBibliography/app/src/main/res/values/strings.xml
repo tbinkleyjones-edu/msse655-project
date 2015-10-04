@@ -23,6 +23,8 @@
     <string name="drawer_close">close drawer</string>
     <string name="action_demo_data">Add demo data</string>
     <string name="action_delete_all">Delete all</string>
+    <string name="action_favorite">Favorite</string>
+    <string name="action_delete">Delete</string>
     <string-array name="items">
         <item>All</item>
         <item>Recent</item>

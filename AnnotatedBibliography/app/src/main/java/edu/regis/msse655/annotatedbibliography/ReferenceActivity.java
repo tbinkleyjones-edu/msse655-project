@@ -2,6 +2,7 @@ package edu.regis.msse655.annotatedbibliography;
 
 import android.content.res.Configuration;
 import android.os.PersistableBundle;
+import android.support.v4.app.NavUtils;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,10 +23,15 @@ import android.widget.Toast;
  */
 public class ReferenceActivity extends AppCompatActivity {
 
+    private ReferenceActivityFragment referenceFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reference);
+
+        // remember the reference fragment for use by the click handler
+        referenceFragment = (ReferenceActivityFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
     }
 
     @Override
@@ -43,7 +49,12 @@ public class ReferenceActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_favorite) {
+            referenceFragment.favoriteReference();
+            return true;
+        } else if (id == R.id.action_delete) {
+            referenceFragment.deleteReference();
+            NavUtils.navigateUpFromSameTask(this);
             return true;
         }
 
