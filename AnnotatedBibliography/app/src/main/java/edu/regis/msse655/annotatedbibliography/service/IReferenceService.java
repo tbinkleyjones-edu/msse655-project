@@ -10,7 +10,6 @@ import edu.regis.msse655.annotatedbibliography.model.ReferenceFilter;
  */
 public interface IReferenceService {
 
-
     /**
      * Retrieves every Reference object stored in the System matching the ReferenceFilter.
      * @param filter
@@ -32,7 +31,8 @@ public interface IReferenceService {
     Reference retrieveReference(int id);
 
     /**
-     * Add an unmanaged Reference object to the list of references managed by the ReferenceService
+     * Add an unmanaged Reference object to the list of references managed by the ReferenceService.
+     * The reference's modified date will be updated as part of this operation.
      * @param reference
      * @return
      */
@@ -40,6 +40,7 @@ public interface IReferenceService {
 
     /**
      * Inform the ReferenceService of changes to a managed Reference object.
+     * The reference's modified date will be updated as part of this operation.
      * @param reference
      * @return
      */

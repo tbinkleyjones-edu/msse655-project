@@ -16,8 +16,8 @@ public class DemoDataGenerator {
 
     public static List<Reference> createReferences() {
         List<Reference> result = new ArrayList<>();
-        Reference reference = new Reference();
 
+        Reference reference = new Reference();
         reference.setReferenceAbstract("The article discusses the advantages and drawbacks of programming mobile device applications (apps) using open source World Wide Web based code, or native code that is specific to each brand of smartphone or mobile computing device. The native code approach can produce apps which perform faster for 3D (three-dimensional) or image processing tasks, but few software development firms have the resources to provide separate coding for multiple devices. Information on the various programming languages used for smartphones such the iPhone, BlackBerry and Android is provided.");
         reference.setAuthors("CHARLAND, ANDRE and LEROUX, BRIAN");
         reference.setTypeOfMedia(TypeOfMedia.MAGAZINE);
@@ -27,6 +27,7 @@ public class DemoDataGenerator {
         reference.setUrl("http://dml.regis.edu/login?url=http://search.ebscohost.com/login.aspx?direct=true&db=bth&AN=60863975&site=ehost-live&scope=site");
         reference.setDoi("10.1145/1941487.1941504");
         reference.setDetails("Number: 5 \nPages: 49-53 \nVolumen: 54 \nYear: 2011");
+        reference.setFavorite(true);
         result.add(reference);
 
         reference = new Reference();
@@ -39,6 +40,7 @@ public class DemoDataGenerator {
         reference.setUrl("http://dml.regis.edu/login?url=http://search.ebscohost.com/login.aspx?direct=true&db=bth&AN=60731958&site=ehost-live&scope=site");
         reference.setDoi("10.1002/bltj.20492");
         reference.setDetails("Number: 1 \nPages: 155-170 \nVolume: 16 \n Year: 2011");
+        reference.setFavorite(true);
         result.add(reference);
 
         reference = new Reference();

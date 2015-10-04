@@ -7,6 +7,7 @@ import android.test.suitebuilder.annotation.MediumTest;
 import java.util.List;
 
 import edu.regis.msse655.annotatedbibliography.model.Reference;
+import edu.regis.msse655.annotatedbibliography.model.ReferenceFilter;
 
 /**
  * A test case to verify ReferenceServiceSioImpl.
@@ -19,6 +20,12 @@ public class ReferenceServiceSioImplTest  extends ApplicationTestCase<Applicatio
     public ReferenceServiceSioImplTest() {
         super(Application.class);
         this.testFilename = "test-file-" + System.currentTimeMillis();
+    }
+
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        getContext().deleteFile(testFilename);
     }
 
     @Override
@@ -44,9 +51,11 @@ public class ReferenceServiceSioImplTest  extends ApplicationTestCase<Applicatio
         Reference reference1 = testReferences.get(0);
         assertEquals(0, reference1.getId()); // confirm the reference does not have an id yet.
         serviceInstance1.create(reference1);
+        long createTime = reference1.getDateModified();
 
         assertEquals(1, serviceInstance1.retrieveAllReferences().size());  // expected to contain 1 reference
         assertTrue(0 != reference1.getId()); // confirm the reference was assigned a new id.
+        assertTrue(createTime > Long.MIN_VALUE);
 
         serviceInstance1 = null;
 
@@ -84,6 +93,8 @@ public class ReferenceServiceSioImplTest  extends ApplicationTestCase<Applicatio
 
         Reference reference4 = referenceList4.get(0);
         assertEquals("new authors", reference4.getAuthors());
+        long updateTime = reference1.getDateModified();
+        assertTrue(updateTime > createTime );
 
         // confirm a reference can be deleted
         serviceInstance4.delete(reference4);
@@ -98,6 +109,64 @@ public class ReferenceServiceSioImplTest  extends ApplicationTestCase<Applicatio
         for (int i = 0; i < referenceList5.size(); i++) {
             assertFalse(referenceList5.get(i).getId() == reference1.getId());
         }
+    }
+
+    /**
+     * Verify service filtering.
+     * @throws Exception
+     */
+    @MediumTest
+    public void testServiceFiltering() throws Exception {
+
+        List<Reference> testReferences = DemoDataGenerator.createReferences();
+
+        ReferenceServiceSioImpl serviceInstance = new ReferenceServiceSioImpl(getContext(), testFilename);
+
+        // add all the test references
+        for (int i = 0; i < testReferences.size(); i++) {
+            serviceInstance.create(testReferences.get(i));
+        }
+        assertEquals(4, serviceInstance.retrieveAllReferences().size());
+
+        // by default the demo data has two favorites.
+        assertEquals(2, serviceInstance.retrieveReferences(ReferenceFilter.FAVORITES).size());
+
+        // the two recent reference should be the last two references in the test list.
+        List<Reference> recentReferences = serviceInstance.retrieveReferences(ReferenceFilter.RECENT);
+        assertEquals(2, recentReferences.size());
+        assertEquals(testReferences.get(3),recentReferences.get(0));
+        assertEquals(testReferences.get(2), recentReferences.get(1));
+
+        // favorite all of the references
+        for (Reference reference : testReferences) {
+            reference.setFavorite(true);
+            serviceInstance.update(reference);
+        }
+
+        assertEquals(4, serviceInstance.retrieveReferences(ReferenceFilter.FAVORITES).size());
+
+        // favorite non of the references
+        for (Reference reference : testReferences) {
+            reference.setFavorite(false);
+            serviceInstance.update(reference);
+        }
+
+        assertEquals(0, serviceInstance.retrieveReferences(ReferenceFilter.FAVORITES).size());
+
+        // favorite only the first and third reference
+        testReferences.get(0).setFavorite(true);
+        serviceInstance.update(testReferences.get(0));
+        testReferences.get(2).setFavorite(true);
+        serviceInstance.update(testReferences.get(2));
+
+        assertEquals(2, serviceInstance.retrieveReferences(ReferenceFilter.FAVORITES).size());
+
+        // verify that the first and third references are the two recent references.
+        recentReferences = serviceInstance.retrieveReferences(ReferenceFilter.RECENT);
+        assertEquals(2, recentReferences.size());
+        assertEquals(testReferences.get(2), recentReferences.get(0));
+        assertEquals(testReferences.get(0),recentReferences.get(1));
+
     }
 
 }

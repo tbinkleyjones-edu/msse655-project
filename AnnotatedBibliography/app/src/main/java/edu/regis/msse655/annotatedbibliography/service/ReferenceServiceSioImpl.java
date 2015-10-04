@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import edu.regis.msse655.annotatedbibliography.model.Reference;
@@ -74,16 +75,43 @@ public class ReferenceServiceSioImpl implements IReferenceService {
         return id;
     }
 
+    /**
+     * Sorts the list of references and returns a new list with only the two most recent references.
+     * @return
+     */
+    private List<Reference> filterRecent() {
+        List<Reference> sortedReferenceList = new ArrayList(referenceList);
+
+        Collections.sort(sortedReferenceList, new Comparator<Reference>() {
+            @Override
+            public int compare(Reference lhsReference, Reference rhsReference) {
+                long lhs = lhsReference.getDateModified();
+                long rhs = rhsReference.getDateModified();
+                return lhs > rhs ? -1 : (lhs == rhs ? 0 : 1);
+            }
+        });
+        return Arrays.asList(sortedReferenceList.get(0), sortedReferenceList.get(1));
+    }
+
+    private List<Reference> filterFavorites() {
+        List<Reference> favorites = new ArrayList<>();
+        for (Reference reference : referenceList) {
+            if (reference.isFavorite()) {
+                favorites.add(reference);
+            }
+        }
+        return favorites;
+    }
+
     @Override
     public List<Reference> retrieveReferences(ReferenceFilter filter) {
         // TODO: implement recent and favorites flags in the reference.
         switch(filter) {
             case RECENT:
-                // this version of the service returns the only the first Reference for RECENT
-                return Collections.singletonList(referenceList.get(0));
+                // this version of the service returns the 2 most recently modified References for RECENT
+                return Collections.unmodifiableList(filterRecent());
             case FAVORITES:
-                // this version of the service returns the only the first and second Reference for FAVORITES
-                return Arrays.asList(referenceList.get(0), referenceList.get(1));
+                return Collections.unmodifiableList(filterFavorites());
             case ALL:
             default:
                 return Collections.unmodifiableList(referenceList);
@@ -110,6 +138,7 @@ public class ReferenceServiceSioImpl implements IReferenceService {
         // assume reference is not already in the list
         int newId = findMaxId() + 1;
         reference.setId(newId); // assign a unique id
+        reference.setDateModified(System.currentTimeMillis());
         referenceList.add(reference);
         writeFile();
         return reference;
@@ -121,6 +150,7 @@ public class ReferenceServiceSioImpl implements IReferenceService {
         for (int i = 0; i < referenceList.size(); i++) {
             Reference target = referenceList.get(i);
             if (target.getId() == reference.getId()) {
+                reference.setDateModified(System.currentTimeMillis());
                 referenceList.set(i, reference);
                 writeFile();
                 break;

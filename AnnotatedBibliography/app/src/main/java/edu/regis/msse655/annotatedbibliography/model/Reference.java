@@ -19,6 +19,8 @@ public class Reference implements Serializable {
     private String doi;
     private TypeOfMedia typeOfMedia;
     private String authors; // TOOD: consider using a list of Author objects.
+    private boolean favorite;
+    private long dateModified = Long.MIN_VALUE;
 
     public void setId(int id) {
         this.id = id;
@@ -108,6 +110,22 @@ public class Reference implements Serializable {
         this.authors = authors;
     }
 
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    public long getDateModified() {
+        return dateModified;
+    }
+
+    public void setDateModified(long dateModified) {
+        this.dateModified = dateModified;
+    }
+
     @Override
     public String toString() {
         return referenceTitle + "\n" + authors + ", " + mediaTitle;
@@ -121,6 +139,8 @@ public class Reference implements Serializable {
         Reference reference = (Reference) o;
 
         if (id != reference.id) return false;
+        if (favorite != reference.favorite) return false;
+        if (dateModified != reference.dateModified) return false;
         if (mediaTitle != null ? !mediaTitle.equals(reference.mediaTitle) : reference.mediaTitle != null)
             return false;
         if (referenceTitle != null ? !referenceTitle.equals(reference.referenceTitle) : reference.referenceTitle != null)
@@ -152,6 +172,8 @@ public class Reference implements Serializable {
         result = 31 * result + (doi != null ? doi.hashCode() : 0);
         result = 31 * result + (typeOfMedia != null ? typeOfMedia.hashCode() : 0);
         result = 31 * result + (authors != null ? authors.hashCode() : 0);
+        result = 31 * result + (favorite ? 1 : 0);
+        result = 31 * result + (int) (dateModified ^ (dateModified >>> 32));
         return result;
     }
 }
