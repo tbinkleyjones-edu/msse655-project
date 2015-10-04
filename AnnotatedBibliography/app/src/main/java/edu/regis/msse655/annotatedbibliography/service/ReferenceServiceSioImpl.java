@@ -114,7 +114,7 @@ public class ReferenceServiceSioImpl implements IReferenceService {
                 return Collections.unmodifiableList(filterFavorites());
             case ALL:
             default:
-                return Collections.unmodifiableList(referenceList);
+                return Collections.unmodifiableList(new ArrayList<>(referenceList));
         }
     }
 
@@ -171,5 +171,11 @@ public class ReferenceServiceSioImpl implements IReferenceService {
             }
         }
         return reference;
+    }
+
+    @Override
+    public void clear() {
+        referenceList.clear();
+        writeFile();
     }
 }

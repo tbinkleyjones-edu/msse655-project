@@ -46,7 +46,7 @@ public class ReferenceServiceSioImplTest  extends ApplicationTestCase<Applicatio
         // multiple service instances are used in this test to confirm that the service is not
         // just reading objects from memory.
         ReferenceServiceSioImpl serviceInstance1 = new ReferenceServiceSioImpl(getContext(), testFilename);
-        assertEquals(0, serviceInstance1.retrieveAllReferences().size());  // expected to be empty initially
+        assertEquals(0, serviceInstance1.retrieveAllReferences().size());  // expect to be empty initially
 
         Reference reference1 = testReferences.get(0);
         assertEquals(0, reference1.getId()); // confirm the reference does not have an id yet.
@@ -109,6 +109,14 @@ public class ReferenceServiceSioImplTest  extends ApplicationTestCase<Applicatio
         for (int i = 0; i < referenceList5.size(); i++) {
             assertFalse(referenceList5.get(i).getId() == reference1.getId());
         }
+
+        // confirm clear deletes all references
+        serviceInstance5.clear();
+        serviceInstance5=null;
+        referenceList5=null;
+
+        ReferenceServiceSioImpl serviceInstance6 = new ReferenceServiceSioImpl(getContext(), testFilename);
+        assertEquals(0, serviceInstance6.retrieveAllReferences().size());  // expect to be empty
     }
 
     /**

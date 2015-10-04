@@ -91,13 +91,18 @@ public class ReferenceListActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        // this block neables the nav drawer
+        // this block enables the nav drawer
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_demo_data) {
+            listFragment.addDemoData();
+            return true;
+        }
+
+        if (id == R.id.action_delete_all) {
+            listFragment.deleteAllReferences();
             return true;
         }
 

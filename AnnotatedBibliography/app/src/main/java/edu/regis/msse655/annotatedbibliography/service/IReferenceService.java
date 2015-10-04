@@ -52,4 +52,9 @@ public interface IReferenceService {
      * @return
      */
     Reference delete(Reference reference);
+
+    /**
+     * Remove all managed Reference objects from the list of references managed by the ReferenceService
+     */
+    void clear();
 }
