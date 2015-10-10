@@ -18,7 +18,7 @@ import edu.regis.msse655.annotatedbibliography.service.ServiceLocator;
  * A fragment used to display a Reference object.
  *
  * The index of the Reference to display must be passed via the parent Activity's Intent, using
- * an extras key of "index" contain a integer value.
+ * an extras key of "id" contain a integer value.
  *
  * The fragment also launches a web browser via an ACTION_VIEW Intent passing a the Reference's
  * Url property, or an Url constructed using the Reference's DOI property.
@@ -35,9 +35,9 @@ public class ReferenceActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         Intent intent = getActivity().getIntent();
-        int index = intent.getIntExtra("index", -1);
+        long id = intent.getLongExtra("id", -1);
 
-        reference = ServiceLocator.getReferenceService().retrieveReference(index);
+        reference = ServiceLocator.getReferenceService().retrieveReference(id);
 
         View rootView = inflater.inflate(R.layout.fragment_reference, container, false);
         ((TypeOfMediaView)rootView.findViewById(R.id.imageViewMediaType)).setTypeOfMedia(reference.getTypeOfMedia());

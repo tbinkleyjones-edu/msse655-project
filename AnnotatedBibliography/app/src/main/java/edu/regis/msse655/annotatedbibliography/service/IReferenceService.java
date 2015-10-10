@@ -28,7 +28,7 @@ public interface IReferenceService {
      * @param id
      * @return The requested Reference object.
      */
-    Reference retrieveReference(int id);
+    Reference retrieveReference(long id);
 
     /**
      * Add an unmanaged Reference object to the list of references managed by the ReferenceService.

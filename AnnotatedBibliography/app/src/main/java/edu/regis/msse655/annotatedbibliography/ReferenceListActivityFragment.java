@@ -54,7 +54,7 @@ public class ReferenceListActivityFragment extends ListFragment {
         Reference reference = (Reference)getListAdapter().getItem(position);
 
         Intent intent = new Intent(v.getContext(), ReferenceActivity.class);
-        intent.putExtra("index", reference.getId());
+        intent.putExtra("id", reference.getId());
 
         startActivity(intent);
     }
