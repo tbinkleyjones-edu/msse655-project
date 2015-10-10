@@ -25,6 +25,8 @@ import edu.regis.msse655.annotatedbibliography.service.ServiceLocator;
  */
 public class ReferenceActivityFragment extends Fragment {
 
+    private Reference reference;
+
     public ReferenceActivityFragment() {
     }
 
@@ -35,7 +37,7 @@ public class ReferenceActivityFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         int index = intent.getIntExtra("index", -1);
 
-        final Reference reference = ServiceLocator.getReferenceService().retrieveReference(index);
+        reference = ServiceLocator.getReferenceService().retrieveReference(index);
 
         View rootView = inflater.inflate(R.layout.fragment_reference, container, false);
         ((TypeOfMediaView)rootView.findViewById(R.id.imageViewMediaType)).setTypeOfMedia(reference.getTypeOfMedia());
@@ -74,4 +76,12 @@ public class ReferenceActivityFragment extends Fragment {
         startActivity(webpage);
     }
 
+    public void favoriteReference() {
+        reference.setFavorite(!reference.isFavorite());
+        reference = ServiceLocator.getReferenceService().update(reference);
+    }
+
+    public void deleteReference() {
+        reference = ServiceLocator.getReferenceService().delete(reference);
+    }
 }

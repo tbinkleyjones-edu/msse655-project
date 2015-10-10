@@ -16,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import edu.regis.msse655.annotatedbibliography.model.ReferenceFilter;
+import edu.regis.msse655.annotatedbibliography.service.ReferenceServiceSioImpl;
+import edu.regis.msse655.annotatedbibliography.service.ServiceLocator;
 
 /**
  * The primary or main Activity for the application.
@@ -35,6 +37,10 @@ public class ReferenceListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // initialize the ServiceLocator
+        ServiceLocator.createInstance(new ReferenceServiceSioImpl(getApplicationContext()));
+
         setContentView(R.layout.activity_reference_list);
 
         // TODO: add support for bib file import
@@ -85,13 +91,18 @@ public class ReferenceListActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        // this block neables the nav drawer
+        // this block enables the nav drawer
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_demo_data) {
+            listFragment.addDemoData();
+            return true;
+        }
+
+        if (id == R.id.action_delete_all) {
+            listFragment.deleteAllReferences();
             return true;
         }
 

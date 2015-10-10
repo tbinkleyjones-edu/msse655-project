@@ -14,7 +14,8 @@ import java.util.List;
 import edu.regis.msse655.annotatedbibliography.components.ReferenceArrayAdapter;
 import edu.regis.msse655.annotatedbibliography.model.Reference;
 import edu.regis.msse655.annotatedbibliography.model.ReferenceFilter;
-import edu.regis.msse655.annotatedbibliography.service.ReferenceService;
+import edu.regis.msse655.annotatedbibliography.service.DemoDataGenerator;
+import edu.regis.msse655.annotatedbibliography.service.IReferenceService;
 import edu.regis.msse655.annotatedbibliography.service.ServiceLocator;
 
 /**
@@ -38,7 +39,7 @@ public class ReferenceListActivityFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ReferenceService service = ServiceLocator.getReferenceService();
+        IReferenceService service = ServiceLocator.getReferenceService();
 
         // TODO: use a custom adapter that builds a view tailored for the reference.
         arrayAdapter = new ReferenceArrayAdapter(
@@ -59,9 +60,26 @@ public class ReferenceListActivityFragment extends ListFragment {
     }
 
     public void filterList(ReferenceFilter filter) {
-        ReferenceService service = ServiceLocator.getReferenceService();
+        IReferenceService service = ServiceLocator.getReferenceService();
         List<Reference> references = service.retrieveReferences(filter);
         arrayAdapter.clear();
         arrayAdapter.addAll(references);
+    }
+
+    public void addDemoData() {
+        IReferenceService service = ServiceLocator.getReferenceService();
+        List<Reference> demoReferences = DemoDataGenerator.createReferences();
+        for (Reference reference : demoReferences) {
+            service.create(reference);
+        }
+        arrayAdapter.clear();
+        arrayAdapter.addAll(service.retrieveAllReferences());
+    }
+
+    public void deleteAllReferences() {
+        IReferenceService service = ServiceLocator.getReferenceService();
+        service.clear();
+        arrayAdapter.clear();
+        arrayAdapter.addAll(service.retrieveAllReferences());
     }
 }
