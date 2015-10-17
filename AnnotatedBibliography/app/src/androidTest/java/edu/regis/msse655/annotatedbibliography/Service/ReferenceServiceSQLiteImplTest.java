@@ -1,6 +1,7 @@
 package edu.regis.msse655.annotatedbibliography.service;
 
 import android.app.Application;
+import android.content.Context;
 import android.test.ApplicationTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
 
@@ -12,30 +13,22 @@ import edu.regis.msse655.annotatedbibliography.model.ReferenceFilter;
 /**
  * A test case to verify ReferenceServiceSioImpl.
  */
-public class ReferenceServiceSioImplTest  extends ApplicationTestCase<Application> {
+public class ReferenceServiceSQLiteImplTest extends ApplicationTestCase<Application> {
 
-    // use a unique file name for each run to avoid deleting production data, and to avoid side effects between test runs.
-    String testFilename;
+    // use an in memory database for each run to avoid deleting production data, and to avoid side effects between test runs.
+    private static class ReferenceServiceInMemorySQLiteImpl extends ReferenceServiceSQLiteImpl {
+        protected ReferenceServiceInMemorySQLiteImpl(Context context) {
+            super(context, null);
+        }
+    }
 
-    public ReferenceServiceSioImplTest() {
+    public ReferenceServiceSQLiteImplTest() {
         super(Application.class);
-        this.testFilename = "test-file-" + System.currentTimeMillis();
-    }
-
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-        getContext().deleteFile(testFilename);
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        getContext().deleteFile(testFilename);
-        super.tearDown();
     }
 
     /**
      * Verify the service creates, stores, updates, and deletes reference objects.
+     *
      * @throws Exception
      */
     @MediumTest
@@ -45,23 +38,20 @@ public class ReferenceServiceSioImplTest  extends ApplicationTestCase<Applicatio
 
         // multiple service instances are used in this test to confirm that the service is not
         // just reading objects from memory.
-        ReferenceServiceSioImpl serviceInstance1 = new ReferenceServiceSioImpl(getContext(), testFilename);
-        assertEquals(0, serviceInstance1.retrieveAllReferences().size());  // expect to be empty initially
+        ReferenceServiceSQLiteImpl serviceInstance = new ReferenceServiceInMemorySQLiteImpl(getContext());
+        assertEquals(0, serviceInstance.retrieveAllReferences().size());  // expect to be empty initially
 
         Reference reference1 = testReferences.get(0);
         assertEquals(-1, reference1.getId()); // confirm the reference does not have an id yet.
-        serviceInstance1.create(reference1);
+        serviceInstance.create(reference1);
         long createTime = reference1.getDateModified();
 
-        assertEquals(1, serviceInstance1.retrieveAllReferences().size());  // expected to contain 1 reference
+        assertEquals(1, serviceInstance.retrieveAllReferences().size());  // expected to contain 1 reference
         assertTrue(0 != reference1.getId()); // confirm the reference was assigned a new id.
         assertTrue(createTime > Long.MIN_VALUE);
 
-        serviceInstance1 = null;
-
         // confirm that reference1 was persisted
-        ReferenceServiceSioImpl serviceInstance2 = new ReferenceServiceSioImpl(getContext(), testFilename);
-        List<Reference> referenceList2 = serviceInstance2.retrieveAllReferences();
+        List<Reference> referenceList2 = serviceInstance.retrieveAllReferences();
         assertEquals(1, referenceList2.size());  // expected to contain 1 reference
 
         Reference reference2 = referenceList2.get(0);
@@ -69,46 +59,40 @@ public class ReferenceServiceSioImplTest  extends ApplicationTestCase<Applicatio
         assertEquals(reference1, reference2);   // but should be equal
 
         // try again with just the reference id
-        reference2 = serviceInstance2.retrieveReference(reference1.getId());
+        reference2 = serviceInstance.retrieveReference(reference1.getId());
         assertFalse(reference1 == reference2);  // shouldn't be the same java object
         assertEquals(reference1, reference2);   // but should be equal
 
         // add a few other references to confirm more than one item is persisted
         for (int i = 1; i < testReferences.size(); i++) {
-            serviceInstance2.create(testReferences.get(i));
+            serviceInstance.create(testReferences.get(i));
         }
 
-        assertEquals(testReferences.size(), serviceInstance2.retrieveAllReferences().size());  // expected to contain all test references
+        assertEquals(testReferences.size(), serviceInstance.retrieveAllReferences().size());  // expected to contain all test references
         reference2 = null;
         referenceList2 = null;
-        serviceInstance2 = null;
 
         // confirm a reference can be updated
-        ReferenceServiceSioImpl serviceInstance3 = new ReferenceServiceSioImpl(getContext(), testFilename);
-        List<Reference> referenceList3 = serviceInstance3.retrieveAllReferences();
+        List<Reference> referenceList3 = serviceInstance.retrieveAllReferences();
         assertEquals(testReferences.size(), referenceList3.size());  // expected to contain all test references
 
         reference1.setAuthors("new authors");
-        serviceInstance3.update(reference1);
-        serviceInstance3 = null;
+        serviceInstance.update(reference1);
 
-        ReferenceServiceSioImpl serviceInstance4 = new ReferenceServiceSioImpl(getContext(), testFilename);
-        List<Reference> referenceList4 = serviceInstance4.retrieveAllReferences();
+        List<Reference> referenceList4 = serviceInstance.retrieveAllReferences();
         assertEquals(testReferences.size(), referenceList4.size());  // expected to contain all test references
 
         Reference reference4 = referenceList4.get(0);
         assertEquals("new authors", reference4.getAuthors());
         long updateTime = reference1.getDateModified();
-        assertTrue(updateTime > createTime );
+        assertTrue(updateTime > createTime);
 
         // confirm a reference can be deleted
-        serviceInstance4.delete(reference4);
-        serviceInstance4 = null;
+        serviceInstance.delete(reference4);
         referenceList4 = null;
-        reference4=null;
+        reference4 = null;
 
-        ReferenceServiceSioImpl serviceInstance5 = new ReferenceServiceSioImpl(getContext(), testFilename);
-        List<Reference> referenceList5 = serviceInstance5.retrieveAllReferences();
+        List<Reference> referenceList5 = serviceInstance.retrieveAllReferences();
         assertEquals(testReferences.size() - 1, referenceList5.size());  // expected to contain all test references
 
         for (int i = 0; i < referenceList5.size(); i++) {
@@ -116,16 +100,15 @@ public class ReferenceServiceSioImplTest  extends ApplicationTestCase<Applicatio
         }
 
         // confirm clear deletes all references
-        serviceInstance5.clear();
-        serviceInstance5=null;
-        referenceList5=null;
+        serviceInstance.clear();
+        referenceList5 = null;
 
-        ReferenceServiceSioImpl serviceInstance6 = new ReferenceServiceSioImpl(getContext(), testFilename);
-        assertEquals(0, serviceInstance6.retrieveAllReferences().size());  // expect to be empty
+        assertEquals(0, serviceInstance.retrieveAllReferences().size());  // expect to be empty
     }
 
     /**
      * Verify service filtering.
+     *
      * @throws Exception
      */
     @MediumTest
@@ -133,11 +116,13 @@ public class ReferenceServiceSioImplTest  extends ApplicationTestCase<Applicatio
 
         List<Reference> testReferences = DemoDataGenerator.createReferences();
 
-        ReferenceServiceSioImpl serviceInstance = new ReferenceServiceSioImpl(getContext(), testFilename);
+        ReferenceServiceSQLiteImpl serviceInstance = new ReferenceServiceInMemorySQLiteImpl(getContext());
 
         // add all the test references
         for (int i = 0; i < testReferences.size(); i++) {
             serviceInstance.create(testReferences.get(i));
+            // sleep for a tiny bit so that each reference gets a different time stamp.
+            Thread.sleep(1);
         }
         assertEquals(4, serviceInstance.retrieveAllReferences().size());
 
@@ -147,7 +132,7 @@ public class ReferenceServiceSioImplTest  extends ApplicationTestCase<Applicatio
         // the two recent reference should be the last two references in the test list.
         List<Reference> recentReferences = serviceInstance.retrieveReferences(ReferenceFilter.RECENT);
         assertEquals(2, recentReferences.size());
-        assertEquals(testReferences.get(3),recentReferences.get(0));
+        assertEquals(testReferences.get(3), recentReferences.get(0));
         assertEquals(testReferences.get(2), recentReferences.get(1));
 
         // favorite all of the references
@@ -169,6 +154,7 @@ public class ReferenceServiceSioImplTest  extends ApplicationTestCase<Applicatio
         // favorite only the first and third reference
         testReferences.get(0).setFavorite(true);
         serviceInstance.update(testReferences.get(0));
+        Thread.sleep(1); // again, sleep so that the updated references do not have the same timestamp
         testReferences.get(2).setFavorite(true);
         serviceInstance.update(testReferences.get(2));
 
@@ -178,7 +164,7 @@ public class ReferenceServiceSioImplTest  extends ApplicationTestCase<Applicatio
         recentReferences = serviceInstance.retrieveReferences(ReferenceFilter.RECENT);
         assertEquals(2, recentReferences.size());
         assertEquals(testReferences.get(2), recentReferences.get(0));
-        assertEquals(testReferences.get(0),recentReferences.get(1));
+        assertEquals(testReferences.get(0), recentReferences.get(1));
 
     }
 

@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Reference implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private int id;
+    private long id = -1;
     private String mediaTitle;
     private String referenceTitle;
     private String details;
@@ -22,11 +22,11 @@ public class Reference implements Serializable {
     private boolean favorite;
     private long dateModified = Long.MIN_VALUE;
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -161,7 +161,7 @@ public class Reference implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (mediaTitle != null ? mediaTitle.hashCode() : 0);
         result = 31 * result + (referenceTitle != null ? referenceTitle.hashCode() : 0);
         result = 31 * result + (details != null ? details.hashCode() : 0);

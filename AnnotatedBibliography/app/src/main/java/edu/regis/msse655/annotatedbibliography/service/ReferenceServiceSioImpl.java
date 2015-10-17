@@ -67,8 +67,8 @@ public class ReferenceServiceSioImpl implements IReferenceService {
      * A kind of an ugly way to generate a unique id.
      * @return
      */
-    private int findMaxId() {
-        int id = 0;
+    private long findMaxId() {
+        long id = 0;
         for (Reference reference : referenceList) {
             id = Math.max(id, reference.getId());
         }
@@ -105,7 +105,6 @@ public class ReferenceServiceSioImpl implements IReferenceService {
 
     @Override
     public List<Reference> retrieveReferences(ReferenceFilter filter) {
-        // TODO: implement recent and favorites flags in the reference.
         switch(filter) {
             case RECENT:
                 // this version of the service returns the 2 most recently modified References for RECENT
@@ -124,7 +123,7 @@ public class ReferenceServiceSioImpl implements IReferenceService {
     }
 
     @Override
-    public Reference retrieveReference(int id) {
+    public Reference retrieveReference(long id) {
         for(Reference reference : referenceList) {
             if( reference.getId() == id) {
                 return reference;
@@ -136,7 +135,7 @@ public class ReferenceServiceSioImpl implements IReferenceService {
     @Override
     public Reference create(Reference reference) {
         // assume reference is not already in the list
-        int newId = findMaxId() + 1;
+        long newId = findMaxId() + 1;
         reference.setId(newId); // assign a unique id
         reference.setDateModified(System.currentTimeMillis());
         referenceList.add(reference);

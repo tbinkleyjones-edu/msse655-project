@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import edu.regis.msse655.annotatedbibliography.model.ReferenceFilter;
-import edu.regis.msse655.annotatedbibliography.service.ReferenceServiceSioImpl;
+import edu.regis.msse655.annotatedbibliography.service.ReferenceServiceSQLiteImpl;
 import edu.regis.msse655.annotatedbibliography.service.ServiceLocator;
 
 /**
@@ -39,7 +39,7 @@ public class ReferenceListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // initialize the ServiceLocator
-        ServiceLocator.createInstance(new ReferenceServiceSioImpl(getApplicationContext()));
+        ServiceLocator.createInstance(new ReferenceServiceSQLiteImpl(getApplicationContext()));
 
         setContentView(R.layout.activity_reference_list);
 
